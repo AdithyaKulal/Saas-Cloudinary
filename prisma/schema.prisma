@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+
+  // MongoDB Atlas notes:
+  // - Set DATABASE_URL to your Atlas connection string (mongodb+srv://...).
+  // - Prisma maps MongoDB document `_id` to your model `id` field via `@map("_id")`.
+  // - Use `String @db.ObjectId` for ids + relation foreign keys, with `@default(auto())`.
+}
+
+model Video{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String?
+  publicId String
+  originalSize String
+  compressedSize String
+  duration String
+  createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+}
